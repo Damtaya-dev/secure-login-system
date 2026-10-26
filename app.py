@@ -22,7 +22,7 @@ for key in ('FLASK_SECRET_KEY', 'PASSWORD_PEPPER', 'TOTP_ENCRYPTION_KEY'):
 app.config.update(SECRET_KEY=os.environ['FLASK_SECRET_KEY'],
                   SESSION_COOKIE_HTTPONLY=True,
                   SESSION_COOKIE_SAMESITE='Lax',
-                  SESSION_COOKIE_SECURE=False,  # localhost HTTP only; set True under HTTPS
+                  SESSION_COOKIE_SECURE=os.environ.get('RENDER') == 'true',  # localhost HTTP only; set True under HTTPS
                   MAX_CONTENT_LENGTH=16 * 1024)
 app.teardown_appcontext(close_db)
 init_db()
